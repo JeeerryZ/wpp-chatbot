@@ -2,7 +2,7 @@
   "name": "whatsapp-api",
   "version": "1.2.0",
   "description": "ChatBot using WhatsApp Business API with CloudAPI",
-  "main": "server.js",
+  "main": "server.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -14,5 +14,13 @@
     "axios": "^1.8.4",
     "dotenv": "^16.4.7",
     "express": "^4.21.2"
+  },
+  "devDependencies": {
+    "@types/axios": "^0.9.36",
+    "@types/body-parser": "^1.19.5",
+    "@types/express": "^5.0.1",
+    "@types/node": "^22.13.11",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.2"
   }
 }

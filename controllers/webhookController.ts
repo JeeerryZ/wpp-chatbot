@@ -1,6 +1,9 @@
 import axios from 'axios';
+import type { Request, Response } from 'express';
 
-export function handleWebhookVerification(req, res) {
+const VERIFY_TOKEN = process.env.VERIFY_TOKEN;
+
+export function handleWebhookVerification(req: Request, res: Response) {
     let mode = req.query['hub.mode'];
     let token = req.query['hub.verify_token'];
     let challenge = req.query['hub.challenge'];
@@ -19,7 +22,7 @@ export function handleWebhookVerification(req, res) {
 };
 
 
-export function handleMessageWebhook(req, res) {
+export function handleMessageWebhook(req: Request, res: Response) {
 
     console.log(req.body)
     console.log("function reached")
