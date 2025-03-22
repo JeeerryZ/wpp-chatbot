@@ -2,9 +2,11 @@
   "name": "whatsapp-api",
   "version": "1.2.0",
   "description": "ChatBot using WhatsApp Business API with CloudAPI",
-  "main": "server.ts",
+  "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node dist/server.js",
+    "dev": "nodemon --exec tsx server.ts",
+    "build": "tsc"
   },
   "keywords": [],
   "author": "JerryZ",
@@ -18,9 +20,10 @@
   "devDependencies": {
     "@types/axios": "^0.9.36",
     "@types/body-parser": "^1.19.5",
+    "@types/dotenv": "^6.1.1",
     "@types/express": "^5.0.1",
     "@types/node": "^22.13.11",
-    "ts-node": "^10.9.2",
+    "tsx": "^4.19.3",
     "typescript": "^5.8.2"
   }
 }

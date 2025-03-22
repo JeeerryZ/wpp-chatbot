@@ -1,5 +1,10 @@
-import axios from 'axios';
 import type { Request, Response } from 'express';
+import { EventEmitter } from 'events';
+import type { Change } from '../types/messageResponse';
+import type { messageReceivedEvent } from '../types/messageReceivedEvent';
+
+const eventEmitter = new EventEmitter();
+const isDebug = process.env.DEBUG;
 
 const VERIFY_TOKEN = process.env.VERIFY_TOKEN;
 
@@ -24,30 +29,36 @@ export function handleWebhookVerification(req: Request, res: Response) {
 
 export function handleMessageWebhook(req: Request, res: Response) {
 
-    console.log(req.body)
-    console.log("function reached")
-
-
     try {
-        let entry = req.body.entry[0];
-        let changes = entry.changes[0];
-        let messages = changes.value.messages;
-        let status = changes.value.statuses?.[0]?.status;
+        let changes = req.body?.entry[0]?.changes[0] as Change;
+        if (!changes) return;
+        if (changes.field !== "message") return; 
+        let value = changes.value;
+        let messages = value.messages;
         
-
         //Menasgem lida/enviada
-        if(status){
-            console.log(status);
+        //Não temos interesse em chamar um evento da mensagem sendo apenas lida pelo usuário
+        if(changes){
             res.sendStatus(200);
             return;
         }
         
         //Mensagem recebida
+        //Agora a gente chama o evento pra poder processar a mensagem como quisermos
         if(messages){
             let message = messages[0];
             let phone = message.from;
             let text = message.text.body;
-            console.log(`Mensagem recebida de ${phone}: ${text}`);
+            let timestamp = message.timestamp;
+            if (isDebug) console.log(`Mensagem recebida de ${phone}: ${text}`);
+
+            eventEmitter.emit('messageReceived', {
+                phone,
+                text,
+                timestamp
+
+            } as messageReceivedEvent);
+
             res.sendStatus(200);
             return;
         }
