@@ -10,7 +10,15 @@ export interface Entry {
 
 export interface Change {
   value: Value
+  statuses?: Status[]
   field: string
+}
+
+export interface Status{
+  id: string
+  status: string
+  timestamp: string
+  recipient_id: string
 }
 
 export interface Value {

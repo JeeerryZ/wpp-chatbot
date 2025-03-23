@@ -4,3 +4,6 @@ node_modules/
 .vscode
 dist/
 build/
+prisma/migrations
+package-lock.json
+index.js

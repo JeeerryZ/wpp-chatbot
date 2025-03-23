@@ -1,5 +1,5 @@
 export interface messageReceivedEvent {
-    phone: String,
-    text : String,
-    timestamp: String
+    phone: string,
+    text : string,
+    timestamp: string
 }
